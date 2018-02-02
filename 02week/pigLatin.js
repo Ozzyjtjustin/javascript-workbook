@@ -7,15 +7,15 @@ const rl = readline.createInterface({
  output: process.stdout
 });
 
-const pigLatin = (input) => {      //create a function named pigLatin that takes in one argument
-  const vowelArray = ["a","e","i","o","u"]  //create an array of Vowels
-  if(typeof input === typeof "String"){      //check if the input is valid by finding out if the input is a string
-    input = input.trim().toLowerCase()      //format the input to remove white space and convert to lowercase
-    if(vowelArray.includes(input[0])){      //find out if the first letter in the input is a vowel
-      return input + "yay"                   //if so return a new string adding "yay"
+const pigLatin = (input) => {
+  const vowelArray = ["a","e","i","o","u"]
+  if(typeof input === typeof "String"){
+    input = input.trim().toLowerCase()
+    if(vowelArray.includes(input[0])){
+      return input + "yay"
     }else{
        let lowestVowelIndex = 45
-       let splitLetter                               //find the first instance of a vowel
+       let splitLetter
        vowelArray.forEach((vowel)=> {
          let vowelIndex = input.indexOf(vowel)
          if((vowelIndex > -1) && (vowelIndex < lowestVowelIndex)){
@@ -23,12 +23,13 @@ const pigLatin = (input) => {      //create a function named pigLatin that takes
            splitLetter = input[lowestVowelIndex]
           }
        })
-       return console.log(input.substr(lowestVowelIndex) + input.split(splitLetter)[0] + "ay")
+       return input.substr(lowestVowelIndex) + input.split(splitLetter)[0] + "ay"
    }
-  }else {console.log('please enter a word to be translated')}
+  }else {'please enter a word to be translated'}
  }
 
-pigLatin("create")
+
+
 
 
 function getPrompt() {
