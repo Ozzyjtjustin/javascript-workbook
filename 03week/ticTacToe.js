@@ -1,5 +1,5 @@
-// 'use strict';
-//
+'use strict';
+
 // const assert = require('assert');
 // const readline = require('readline');
 // const rl = readline.createInterface({
@@ -12,10 +12,11 @@ let board = [
   [' ', ' ', ' ']
 ];
 
-let playerTurn;
+//create a player and turnCounter variables
+let player;
 let turnCounter = 1
 
-function printBoard() {
+const printBoard = () => {
   console.log('   0  1  2');
   console.log('0 ' + board[0].join(' | '));
   console.log('  ---------');
@@ -23,6 +24,9 @@ function printBoard() {
   console.log('  ---------');
   console.log('2 ' + board[2].join(' | '));
 }
+
+// write 3 functions that take in one argument (player) which is either x or o and checks for posible
+// wins based if certain combinations of board array values are the same.
 
 const horizontalWin = (player) => {
   if((board[0][0] === player) && (board[0][1] === player) && (board[0][2] === player) ||
@@ -46,38 +50,57 @@ const diagonalWin = (player) => {
      return true
   }
 }
-const checkForWin = () => {
-  if(diagonalWin("x") || verticalWin("x") || horizontalWin("x")){
-    return console.log("Xs win!" + board)
-  }else if (diagonalWin("o") || verticalWin("o") || horizontalWin("o")){
-    return console.log("Os win!" + board)
-  }else {console.log("tie")}
-}
 
-function alternatePlayers(){
-  if(tunCounter % 2 === 0){
-    playerTurn = "O"
+//write a function with no argument to be called back later, that returns the winner and prints the board
+// that is if there is a winner. if all the spots are filled and there is no winner function returns a tie
+//and prints the board
+const checkForWin = () => {
+  if(diagonalWin("X") || verticalWin("X") || horizontalWin("X")){
+    return console.log("Xs win!" + printBoard())
+  }else if (diagonalWin("O") || verticalWin("O") || horizontalWin("O")){
+    return console.log("Os win!" + printBoard())
+  }else if(turnCounter > 9) {
+    return console.log("This game ended in a tie!" + printBoard())
+  }
+
+//write a function that alternates the player using the turn counter variable to set a value "X" or "O" to
+//the variable player
+const alternatePlayers = () => {
+  if(turnCounter % 2 === 0){
+    player = "O"
   }else {
-    playerTurn = "X"
+    player = "X"
   }
 }
 
+//write a function that takes two arguments which specify the idex value in the one of the 3 arrays in
+// the board array. calls back the alternating player function and sets the specified index of the board
+//array to the same value of the player variable. then adds 1 to turnCounter
+// if the turn counter is greater than or equal to 5 check for a winner
 const ticTacToe = (row, column) => {
-  board[row][column] = playerTurn
+  alternatePlayers()
+  board[row][column] = player
   turnCounter ++
+  if(turnCounter >= 5){
     checkForWin();
-    console.log(printBoard)
-
+    }
 }
-ticTacToe(0,0)
-ticTacToe(1,1)
-ticTacToe(2,2)
+ticTacToe(0,0)//x
+ticTacToe(1,1)//o
+ticTacToe(0,2)//x
+ticTacToe(0,1)//o
+ticTacToe(1,2)//x
+ticTacToe(2,2)//o
+ticTacToe(2,1)//x
+ticTacToe(1,0)//o
+ticTacToe(2,0)//x
+
 
 
 
 // function getPrompt() {
 //   printBoard();
-//   console.log("It's Player " + playerTurn + "'s turn.");
+//   console.log("It's Player " + player + "'s turn.");
 //   rl.question('row: ', (row) => {
 //     rl.question('column: ', (column) => {
 //       ticTacToe(row, column);
@@ -86,7 +109,7 @@ ticTacToe(2,2)
 //   });
 //
 // }
-//
+
 //
 //
 // // Tests
