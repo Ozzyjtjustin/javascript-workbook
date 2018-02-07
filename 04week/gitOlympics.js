@@ -1,4 +1,4 @@
-'use strict'
+ 'use strict'
 let olympicsArray;
 const printListOfOlympians = (array) => {
   let olympicsArray = array.split()
