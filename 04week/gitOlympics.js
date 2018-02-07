@@ -1,8 +1,7 @@
  'use strict'
-let olympicsArray;
+
 const printListOfOlympians = (array) => {
-  let olympicsArray = array.split()
-    olympicsArray.forEach((arrayItem) => {
+    array.split().forEach((arrayItem) => {
       console.log(arrayItem)
     })
 }
