@@ -12,32 +12,81 @@ let stacks = {
   b: [],
   c: []
 };
+let moveCounter = 0
 
-function printStacks() {
+const printStacks = () => {
   console.log("a: " + stacks.a);
   console.log("b: " + stacks.b);
   console.log("c: " + stacks.c);
 }
 
-function movePiece() {
-  // Your code here
-
+const isItLegal = () => {
+  if((startStack === "a" || startStack === "b" || startStack === "c") &&
+     (endStack === "a" || endStack === "b" || endStack === "c")){
+    console.log("yes it is legal input")
+    return true
+  }
 }
 
-function isLegal() {
-  // Your code here
-
+const movePiece = () => {
+  let blockToBeMoved = stacks[startStack].pop()
+  let lastBlockLastStack = stacks[endStack].valueOf()[stacks[endStack].valueOf().length-1]
+  if((stacks[endStack].length === 0) || (blockToBeMoved < lastBlockLastStack)){
+      stacks[endStack].push(blockToBeMoved)
+      moveCounter ++
+      return true
+  }
 }
 
-function checkForWin() {
-  // Your code here
-
+const checkMoveCounter = (moveCounter) => {
+    if(moveCounter <= 16){
+      return true
+    }else{
+      return false
+    }
 }
 
-function towersOfHanoi(startStack, endStack) {
-  // Your code here
-
+const checkForWin = () => {
+  valueOfCStack = stacks[endStack].valueOf()
+  winningArray = [4, 3, 2, 1]
+  if(valueOfCStack == winningArray){
+    if(checkMoveCounter){
+      return true
+    }else{
+      console.log("Almost but you use too many moves, give it another trie!")
+      return false
+    }
 }
+
+const towersOfHanoi = (startStack, endStack) => {
+  if(isItLegal){
+    if(movePiece){
+      if(checkForWin){
+        console.log("Congratulations you win!")
+        printStacks
+      }
+      else console.log("next move")
+    }
+    else console.log("invalid move")
+  }
+  else console.log("invalid input")
+}
+
+towersOfHanoi("a","b")
+towersOfHanoi("a","c")
+towersOfHanoi("b","c")
+towersOfHanoi("a","b")
+towersOfHanoi("c","a")
+towersOfHanoi("c","b")
+towersOfHanoi("a","b")
+towersOfHanoi("a","c")
+towersOfHanoi("b","c")
+towersOfHanoi("b","a")
+towersOfHanoi("c","a")
+towersOfHanoi("b","c")
+towersOfHanoi("a","b")
+towersOfHanoi("a","c")
+towersOfHanoi("b","c")
 
 function getPrompt() {
   printStacks();
@@ -50,5 +99,3 @@ function getPrompt() {
 }
 
 getPrompt();
-
-
