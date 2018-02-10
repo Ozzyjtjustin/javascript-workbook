@@ -45,10 +45,21 @@ const checkMoveCounter = (moveCounter) => {
     }
 }
 
+const compareWinningArrays = (finalArray, winningArray) => {
+  if(finalArray.length == winningArray.length){
+    for(var i = 0 ; i = finalArray.length; i++){
+        if(finalArray[i] === winningArray[i]){
+            return true;
+          }else return false
+    }
+  }
+}
+
+
 const checkForWin = (startStack, endStack) => {
   let finalArray = stacks[endStack].valueOf()
   let winningArray = [4, 3, 2, 1]
-  if(finalArray === winningArray){
+  if(compareWinningArrays(finalArray, winningArray)){
     if(checkMoveCounter){
       return true
     }else{
@@ -62,17 +73,30 @@ const towersOfHanoi = (startStack, endStack) => {
   if(isItLegal(startStack, endStack)){
     if(movePiece(startStack, endStack)){
       if(checkForWin(startStack, endStack)){
-        console.log("Congratulations you win!")
-        printStacks
+        return console.log("Congratulations you win!")
       }
-      else return false
+      else console.log("Next Move") + printStacks()
     }
     else console.log("invalid move")
   }
   else console.log("invalid input")
 }
-
-
+// towersOfHanoi("a","b")
+// towersOfHanoi("a","c")
+// towersOfHanoi("b","c")
+// towersOfHanoi("a","b")
+// towersOfHanoi("c","a")
+// towersOfHanoi("c","b")
+// towersOfHanoi("a","b")
+// towersOfHanoi("a","c")
+// towersOfHanoi("b","c")
+// towersOfHanoi("b","a")
+// towersOfHanoi("c","a")
+// towersOfHanoi("b","c")
+// towersOfHanoi("a","b")
+// towersOfHanoi("a","c")
+// towersOfHanoi("b","c")
+//
 
 function getPrompt() {
   printStacks();
