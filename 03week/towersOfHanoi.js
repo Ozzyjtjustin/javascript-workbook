@@ -20,18 +20,17 @@ const printStacks = () => {
   console.log("c: " + stacks.c);
 }
 
-const isItLegal = () => {
+const isItLegal = (startStack, endStack) => {
   if((startStack === "a" || startStack === "b" || startStack === "c") &&
      (endStack === "a" || endStack === "b" || endStack === "c")){
-    console.log("yes it is legal input")
     return true
   }
 }
 
-const movePiece = () => {
+const movePiece = (startStack, endStack) => {
   let blockToBeMoved = stacks[startStack].pop()
-  let lastBlockLastStack = stacks[endStack].valueOf()[stacks[endStack].valueOf().length-1]
-  if((stacks[endStack].length === 0) || (blockToBeMoved < lastBlockLastStack)){
+  let lastBlockOfFutureStack = stacks[endStack].valueOf()[stacks[endStack].valueOf().length-1]
+  if((stacks[endStack].length === 0) || (blockToBeMoved < lastBlockOfFutureStack)){
       stacks[endStack].push(blockToBeMoved)
       moveCounter ++
       return true
@@ -46,47 +45,34 @@ const checkMoveCounter = (moveCounter) => {
     }
 }
 
-const checkForWin = () => {
-  valueOfCStack = stacks[endStack].valueOf()
-  winningArray = [4, 3, 2, 1]
-  if(valueOfCStack == winningArray){
+const checkForWin = (startStack, endStack) => {
+  let finalArray = stacks[endStack].valueOf()
+  let winningArray = [4, 3, 2, 1]
+  if(finalArray === winningArray){
     if(checkMoveCounter){
       return true
     }else{
       console.log("Almost but you use too many moves, give it another trie!")
       return false
     }
+  }
 }
 
 const towersOfHanoi = (startStack, endStack) => {
-  if(isItLegal){
-    if(movePiece){
-      if(checkForWin){
+  if(isItLegal(startStack, endStack)){
+    if(movePiece(startStack, endStack)){
+      if(checkForWin(startStack, endStack)){
         console.log("Congratulations you win!")
         printStacks
       }
-      else console.log("next move")
+      else return false
     }
     else console.log("invalid move")
   }
   else console.log("invalid input")
 }
 
-towersOfHanoi("a","b")
-towersOfHanoi("a","c")
-towersOfHanoi("b","c")
-towersOfHanoi("a","b")
-towersOfHanoi("c","a")
-towersOfHanoi("c","b")
-towersOfHanoi("a","b")
-towersOfHanoi("a","c")
-towersOfHanoi("b","c")
-towersOfHanoi("b","a")
-towersOfHanoi("c","a")
-towersOfHanoi("b","c")
-towersOfHanoi("a","b")
-towersOfHanoi("a","c")
-towersOfHanoi("b","c")
+
 
 function getPrompt() {
   printStacks();
