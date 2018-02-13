@@ -28,10 +28,10 @@ const isItLegal = (startStack, endStack) => {
 }
 
 const movePiece = (startStack, endStack) => {
-  let blockToBeMoved = stacks[startStack].pop()
+  let blockToBeMoved = stacks[startStack].valueOf()[stacks[startStack].valueOf().length-1]
   let lastBlockOfFutureStack = stacks[endStack].valueOf()[stacks[endStack].valueOf().length-1]
   if((stacks[endStack].length === 0) || (blockToBeMoved < lastBlockOfFutureStack)){
-      stacks[endStack].push(blockToBeMoved)
+      stacks[endStack].push(stacks[startStack].pop())
       moveCounter ++
       return true
   }
@@ -60,11 +60,10 @@ const checkForWin = (startStack, endStack) => {
   let finalArray = stacks[endStack].valueOf()
   let winningArray = [4, 3, 2, 1]
   if(compareWinningArrays(finalArray, winningArray)){
-    if(checkMoveCounter){
+    if(checkMoveCounter(moveCounter)){
       return true
     }else{
       console.log("Almost but you use too many moves, give it another trie!")
-      return false
     }
   }
 }
@@ -81,22 +80,7 @@ const towersOfHanoi = (startStack, endStack) => {
   }
   else console.log("invalid input")
 }
-// towersOfHanoi("a","b")
-// towersOfHanoi("a","c")
-// towersOfHanoi("b","c")
-// towersOfHanoi("a","b")
-// towersOfHanoi("c","a")
-// towersOfHanoi("c","b")
-// towersOfHanoi("a","b")
-// towersOfHanoi("a","c")
-// towersOfHanoi("b","c")
-// towersOfHanoi("b","a")
-// towersOfHanoi("c","a")
-// towersOfHanoi("b","c")
-// towersOfHanoi("a","b")
-// towersOfHanoi("a","c")
-// towersOfHanoi("b","c")
-//
+
 
 function getPrompt() {
   printStacks();
