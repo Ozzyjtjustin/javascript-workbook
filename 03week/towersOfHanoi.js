@@ -38,19 +38,19 @@ const movePiece = (startStack, endStack) => {
 }
 
 const checkMoveCounter = (moveCounter) => {
-    if(moveCounter <= 16){
-      return true
-    }else{
-      return false
-    }
+  if(moveCounter <= 15){
+    return true
+  }else{
+    return false
+  }
 }
 
 const compareWinningArrays = (finalArray, winningArray) => {
   if(finalArray.length == winningArray.length){
     for(var i = 0 ; i = finalArray.length; i++){
-        if(finalArray[i] === winningArray[i]){
-            return true;
-          }else return false
+      if(finalArray[i] === winningArray[i]){
+          return true;
+      }else return false
     }
   }
 }
