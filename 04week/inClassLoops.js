@@ -48,17 +48,25 @@ const latestExchangeRate = {
 
 //create a function that returns the base and date for and object. Use latestExchangeRate as an example to test your function
 const baseAndDate = () => {
-     return latestExchangeRate.base + " " + latestExchangeRate.date
+     return console.log(latestExchangeRate.base + " " + latestExchangeRate.date)
 }
+//baseAndDate()
 //create a function that returns a list of availble currencies from a given object. Use latestExchangeRate as an example to test your function
-const availbleCurrencies = ()=> {
-    return latestExchangeRate.rates
+const availbleCurrencies = (obj)=> {
+    return console.log(Object.keys(obj.rates))
 }
+//availbleCurrencies(latestExchangeRate)
 // create a function that console logs a string with the currency and the currency rate for each currency in a given object. For example, 'AUD is at a 1.2742 conversion rate'. Use latestExchangeRate as an example to test your function
-const currenciesRates = ()=> {
-    for(let i ){
-
-        return latestExchangeRate.rates
-    }
+const currencieRates = (obj)=> {
+    Object.keys(obj).forEach((currency) => {
+        return console.log(currency + " is at a " + obj[currency] + " conversion rate.")
+    })
 }
+currencieRates(latestExchangeRate.rates)
 //create a function that takes in an object and console logs the result of the object's multiplyByTen method on each of the exchange rates. Use latestExchangeRate as an example to test your function
+const multiplied = (obj) => {
+    Object.keys(obj).forEach((currency) => {
+        return console.log(obj[currency] * 10)
+    })
+}
+//multiplied(latestExchangeRate.rates)
