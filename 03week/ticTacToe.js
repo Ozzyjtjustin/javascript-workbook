@@ -41,7 +41,7 @@ const horizontalWin = () => {
   if(checkForWinningPattern(board[0]) ||
   checkForWinningPattern(board[1]) ||
   checkForWinningPattern(board[2])){
-     return true
+    return true
   }
 }
 
@@ -49,14 +49,14 @@ const verticalWin = () => {
   if((board[0][0] === player && board[1][0] === player && board[2][0] === player) ||
      (board[0][1] === player && board[1][1] === player && board[2][1] === player) ||
      (board[0][2] === player && board[1][2] === player && board[2][2] === player)){
-     return  true
+    return  true
   }
 }
 
 const diagonalWin = () => {
   if((board[0][0] === player && board[1][1] === player && board[2][2] === player) ||
      (board[0][2] === player && board[1][1] === player && board[2][0] === player)){
-     return true
+    return true
   }
 }
 
@@ -91,7 +91,7 @@ const ticTacToe = (row, column) => {
   turnCounter ++
   if(turnCounter >= 5){
     checkForWin();
-    }
+  }
   alternatePlayers()
 }
 // ticTacToe(0,0)//x
