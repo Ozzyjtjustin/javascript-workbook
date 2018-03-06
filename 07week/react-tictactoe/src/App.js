@@ -23,7 +23,7 @@ class App extends Component {
     console.log(this.state.player)
     const newPlayer = this.state.player === 'X' ? 'O' : 'X';
     const newBoard = this.state.board[row][column]
-    this.setState({player: newPlayer})
+    this.setState({player: newPlayer, board: newBoard})
   }
 
 
@@ -53,32 +53,32 @@ class App extends Component {
           <div style={boxStyle} onClick={() => {this.clickTurnHandler(0, 0)}} data-cell="0">
             {this.state.board[0][0]}
           </div>
-          <div style={boxStyle} onClick={this.clickTurnHandler} data-cell="1">
+          <div style={boxStyle} onClick={() => {this.clickTurnHandler(0,1)}} data-cell="1">
             {this.state.board[0][1]}
           </div>
-          <div style={boxStyle} onClick={this.clickTurnHandler} data-cell="2">
+          <div style={boxStyle} onClick={() => {this.clickTurnHandler(0,2)}} data-cell="2">
             {this.state.board[0][2]}
           </div>
         </div>
-        <div className="row">
-          <div onClick={this.clickTurnHandler} data-cell="3">
+        <div className="row" style={rowStyle}>
+          <div style={boxStyle} onClick={() => {this.clickTurnHandler(1,0)}} data-cell="3">
             {this.state.board[1][0]}
           </div>
-          <div onClick={this.clickTurnHandler} data-cell="4">
+          <div style={boxStyle} onClick={() => {this.clickTurnHandler(1,1)}} data-cell="4">
             {this.state.board[1][1]}
           </div>
-          <div onClick={this.clickTurnHandler} data-cell="5">
+          <div style={boxStyle} onClick={() => {this.clickTurnHandler(1,2)}} data-cell="5">
             {this.state.board[1][2]}
           </div>
         </div>
-        <div className="row">
-          <div onClick={this.clickTurnHandler} data-cell="6">
+        <div className="row" style={rowStyle}>
+          <div style={boxStyle} onClick={() => {this.clickTurnHandler(2,0)}} data-cell="6">
             {this.state.board[2][0]}
           </div>
-          <div onClick={this.clickTurnHandler} data-cell="7">
+          <div style={boxStyle} onClick={() => {this.clickTurnHandler(2,1)}} data-cell="7">
             {this.state.board[2][1]}
           </div>
-          <div onClick={this.clickTurnHandler} data-cell="8">
+          <div style={boxStyle} onClick={() => {this.clickTurnHandler(2,2)}} data-cell="8">
             {this.state.board[2][2]}
           </div>
         </div>
