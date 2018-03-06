@@ -11,6 +11,7 @@ const nums = (piObj) => {
     return piNums
   })
 }
+
 nums(strNums)
 console.log(piNums)
 
