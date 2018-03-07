@@ -8,6 +8,9 @@ class App extends Component {
     super(props);
     this.clickTurnHandler = this.clickTurnHandler.bind(this);
     this.checkForHorizontalWin = this.checkForHorizontalWin.bind(this);
+    this.checkForVerticalWin = this.checkForVerticalWin.bind(this);
+    this.checkForDiagonalWin = this.checkForDiagonalWin.bind(this);
+    this.checkForWin = this.checkForWin.bind(this);
     this.state = {
       player:"X",
       clickCount: 0,
@@ -21,13 +24,29 @@ class App extends Component {
 
 
   checkForHorizontalWin(){
-    this.state.board.forEach((arr, index)=>{
-      this.state.board[index].every((box)=>{
-        if(box === this.state.player){
-          return true
-        }
-      })
-    })
+    if((this.state.board[0][0] === this.state.player && this.state.board[0][1] === this.state.player && this.state.board[0][2] === this.state.player) ||
+     (this.state.board[1][0] === this.state.player && this.state.board[1][1] === this.state.player && this.state.board[1][2] === this.state.player) ||
+     (this.state.board[2][0] === this.state.player && this.state.board[2][1] === this.state.player && this.state.board[2][2] === this.state.player)){
+      return  true
+    }
+  }
+  checkForVerticalWin(){
+    if((this.state.board[0][0] === this.state.player && this.state.board[1][0] === this.state.player && this.state.board[2][0] === this.state.player) ||
+     (this.state.board[0][1] === this.state.player && this.state.board[1][1] === this.state.player && this.state.board[2][1] === this.state.player) ||
+     (this.state.board[0][2] === this.state.player && this.state.board[1][2] === this.state.player && this.state.board[2][2] === this.state.player)){
+      return  true
+    }
+  }
+  checkForDiagonalWin(){
+    if((this.state.board[0][0] === this.state.player && this.state.board[1][1] === this.state.player && this.state.board[2][2] === this.state.player) ||
+     (this.state.board[2][0] === this.state.player && this.state.board[1][1] === this.state.player && this.state.board[0][2] === this.state.player)){
+      return  true
+    }
+  }
+  checkForWin(){
+    if(this.checkForHorizontalWin || this.checkForVerticalWin ||  this.checkForDiagonalWin){
+      return true
+    }
   }
 
 
@@ -37,13 +56,13 @@ class App extends Component {
     const newRow = newBoard[row];
     newRow.splice(column,1, this.state.player);
     newBoard.splice(row,1,newRow);
-    this.setState({player: newPlayer, board: newBoard, clickCount: this.state.clickCount += 1})
-    if(this.state.clickCount >=6){
-      if(this.checkForHorizontalWin()){
+    this.setState({player: newPlayer, board: newBoard})
+    if(this.state.clickCount >=5){
+      if(this.checkForWin){
         console.log(this.state.player + " wins!")
-      }console.log('your checkForHorizontalWin function is not return a truthy value')
+      }
     }
-
+    this.setState({clickCount: this.state.clickCount += 1})
   }
 
 
