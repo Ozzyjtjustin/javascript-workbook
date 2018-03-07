@@ -5,10 +5,11 @@ import './App.css';
 class App extends Component {
   constructor(props){
     super(props);
+    //this.handleInputChange = this.handleInputChange.bind(this);
     this.state = {inputValue: ''}
   }
 
-  handleInputChange(){
+  handleInputChange=()=>{
     this.setState({inputValue: 'e'})
   }
 
@@ -18,7 +19,7 @@ class App extends Component {
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
-          <div onClick=()=>{{handleInputChange}}>{this.state.inputValue}</div>
+          <button onClick={this.handleInputChange}>{this.state.inputValue}</button>
         </header>
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
