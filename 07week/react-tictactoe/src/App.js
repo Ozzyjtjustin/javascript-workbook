@@ -1,16 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 
-
-
 class App extends Component {
   constructor(props){
     super(props);
-    this.clickTurnHandler = this.clickTurnHandler.bind(this);
-    this.checkForHorizontalWin = this.checkForHorizontalWin.bind(this);
-    this.checkForVerticalWin = this.checkForVerticalWin.bind(this);
-    this.checkForDiagonalWin = this.checkForDiagonalWin.bind(this);
-    this.checkForWin = this.checkForWin.bind(this);
     this.state = {
       player:"X",
       clickCount: 0,
@@ -22,51 +15,51 @@ class App extends Component {
     }
   };
 
+  checkForHorizontalWin=()=>{
+    if(((this.state.board[0][0] === this.state.player) && (this.state.board[0][1] === this.state.player) && (this.state.board[0][2] === this.state.player)) ||
+     ((this.state.board[1][0] === this.state.player) && (this.state.board[1][1] === this.state.player) && (this.state.board[1][2] === this.state.player)) ||
+     ((this.state.board[2][0] === this.state.player) && (this.state.board[2][1] === this.state.player) && (this.state.board[2][2] === this.state.player))){
+      return  true
+    }
+  }
 
-  checkForHorizontalWin(){
-    if((this.state.board[0][0] === this.state.player && this.state.board[0][1] === this.state.player && this.state.board[0][2] === this.state.player) ||
-     (this.state.board[1][0] === this.state.player && this.state.board[1][1] === this.state.player && this.state.board[1][2] === this.state.player) ||
-     (this.state.board[2][0] === this.state.player && this.state.board[2][1] === this.state.player && this.state.board[2][2] === this.state.player)){
+  checkForVerticalWin=()=>{
+    if(((this.state.board[0][0] === this.state.player && this.state.board[1][0] === this.state.player) && (this.state.board[2][0] === this.state.player)) ||
+     ((this.state.board[0][1] === this.state.player) && (this.state.board[1][1] === this.state.player) && (this.state.board[2][1] === this.state.player)) ||
+     ((this.state.board[0][2] === this.state.player) && (this.state.board[1][2] === this.state.player) && (this.state.board[2][2] === this.state.player))){
       return  true
     }
   }
-  checkForVerticalWin(){
-    if((this.state.board[0][0] === this.state.player && this.state.board[1][0] === this.state.player && this.state.board[2][0] === this.state.player) ||
-     (this.state.board[0][1] === this.state.player && this.state.board[1][1] === this.state.player && this.state.board[2][1] === this.state.player) ||
-     (this.state.board[0][2] === this.state.player && this.state.board[1][2] === this.state.player && this.state.board[2][2] === this.state.player)){
+
+  checkForDiagonalWin=()=>{
+    if(((this.state.board[0][0] === this.state.player) && (this.state.board[1][1] === this.state.player) && (this.state.board[2][2] === this.state.player)) ||
+     ((this.state.board[2][0] === this.state.player) && (this.state.board[1][1] === this.state.player) && (this.state.board[0][2] === this.state.player))){
       return  true
     }
   }
-  checkForDiagonalWin(){
-    if((this.state.board[0][0] === this.state.player && this.state.board[1][1] === this.state.player && this.state.board[2][2] === this.state.player) ||
-     (this.state.board[2][0] === this.state.player && this.state.board[1][1] === this.state.player && this.state.board[0][2] === this.state.player)){
-      return  true
-    }
-  }
-  checkForWin(){
+
+  checkForWin=()=>{
     if(this.checkForHorizontalWin || this.checkForVerticalWin ||  this.checkForDiagonalWin){
       return true
     }
   }
 
-
-  clickTurnHandler(row, column){
+  clickTurnHandler=(row, column)=>{
     const newPlayer = this.state.player === 'X' ? 'O' : 'X';
     const newBoard = this.state.board;
-    const newRow = newBoard[row];
-    newRow.splice(column,1, this.state.player);
-    newBoard.splice(row,1,newRow);
-    this.setState({player: newPlayer, board: newBoard})
+    const newClickCount = this.state.clickCount =+ 1;
+    const clickedRow = newBoard[row];
+    clickedRow.splice(column,1, this.state.player);
+    newBoard.splice(row,1,column);
+    this.setState({player: newPlayer, board: newBoard, clickCount: newClickCount})
     if(this.state.clickCount >=5){
       if(this.checkForWin){
         console.log(this.state.player + " wins!")
       }
     }
-    this.setState({clickCount: this.state.clickCount += 1})
   }
 
-
-  render() {
+  render=()=>{
 
     const rowStyle = {
       color: 'black',
