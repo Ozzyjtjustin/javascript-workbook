@@ -18,8 +18,8 @@ class App extends Component {
   };
 
 
-  checkForWin(){
-    
+  checkForWin=(){
+
   }
 
 
