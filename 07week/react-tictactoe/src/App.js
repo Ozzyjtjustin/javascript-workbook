@@ -7,8 +7,10 @@ class App extends Component {
   constructor(props){
     super(props);
     this.clickTurnHandler = this.clickTurnHandler.bind(this);
+    this.checkForHorizontalWin = this.checkForHorizontalWin.bind(this);
     this.state = {
       player:"X",
+      clickCount: 0,
       board: [
         [null, null, null],
         [null, null, null],
@@ -18,24 +20,35 @@ class App extends Component {
   };
 
 
-  checkForWin=(){
-
+  checkForHorizontalWin(){
+    this.state.board.forEach((arr, index)=>{
+      this.state.board[index].every((box)=>{
+        if(box === this.state.player){
+          return true
+        }
+      })
+    })
   }
 
 
   clickTurnHandler(row, column){
-    console.log('in handler')
-    console.log(this.state.player)
     const newPlayer = this.state.player === 'X' ? 'O' : 'X';
     const newBoard = this.state.board;
     const newRow = newBoard[row];
     newRow.splice(column,1, this.state.player);
     newBoard.splice(row,1,newRow);
-    this.setState({player: newPlayer, board: newBoard})
+    this.setState({player: newPlayer, board: newBoard, clickCount: this.state.clickCount += 1})
+    if(this.state.clickCount >=6){
+      if(this.checkForHorizontalWin()){
+        console.log(this.state.player + " wins!")
+      }console.log('your checkForHorizontalWin function is not return a truthy value')
+    }
+
   }
 
 
   render() {
+
     const rowStyle = {
       color: 'black',
       height: '120px',
@@ -57,7 +70,6 @@ class App extends Component {
       justifyContent: 'center'
     }
 
-    console.log(this.state.board)
     return (
       <div>
         <div className="row" style={rowStyle}>
