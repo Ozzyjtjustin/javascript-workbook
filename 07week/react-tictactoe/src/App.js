@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom'
 import './App.css';
 
 
@@ -18,21 +17,29 @@ class App extends Component {
     }
   };
 
+
+  checkForWin(){
+    
+  }
+
+
   clickTurnHandler(row, column){
     console.log('in handler')
     console.log(this.state.player)
     const newPlayer = this.state.player === 'X' ? 'O' : 'X';
-    const newBoard = this.state.board[row][column]
+    const newBoard = this.state.board;
+    const newRow = newBoard[row];
+    newRow.splice(column,1, this.state.player);
+    newBoard.splice(row,1,newRow);
     this.setState({player: newPlayer, board: newBoard})
   }
 
 
   render() {
     const rowStyle = {
-      backgroundColor: 'pink',
-      color: 'red',
+      color: 'black',
       height: '120px',
-      fontSize: '40px',
+      fontSize: '100px',
       margin: '5px auto',
       display: 'flex',
       flexDirection: 'row',
@@ -42,11 +49,15 @@ class App extends Component {
     const boxStyle = {
       height: '110px',
       width: '110px',
-      backgroundColor: 'pink',
+      backgroundColor: 'lightblue',
       margin: 'auto 20px',
-      border: '1px solid black'
+      border: '5px solid darkgreen',
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center'
     }
 
+    console.log(this.state.board)
     return (
       <div>
         <div className="row" style={rowStyle}>
