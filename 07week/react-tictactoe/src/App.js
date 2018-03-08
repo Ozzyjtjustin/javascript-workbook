@@ -16,51 +16,48 @@ class App extends Component {
   };
 
   checkForHorizontalWin=()=>{
-    if(((this.state.board[0][0] === this.state.player) && (this.state.board[0][1] === this.state.player) && (this.state.board[0][2] === this.state.player)) ||
-     ((this.state.board[1][0] === this.state.player) && (this.state.board[1][1] === this.state.player) && (this.state.board[1][2] === this.state.player)) ||
-     ((this.state.board[2][0] === this.state.player) && (this.state.board[2][1] === this.state.player) && (this.state.board[2][2] === this.state.player))){
+    if((this.state.board[0][0] === this.state.player && this.state.board[0][1] === this.state.player && this.state.board[0][2] === this.state.player) ||
+    (this.state.board[1][0] === this.state.player && this.state.board[1][1] === this.state.player && this.state.board[1][2] === this.state.player) ||
+     (this.state.board[2][0] === this.state.player && this.state.board[2][1] === this.state.player && this.state.board[2][2] === this.state.player)){
       return  true
-    }
-  }
+    }else return false
+  };
 
   checkForVerticalWin=()=>{
-    if(((this.state.board[0][0] === this.state.player && this.state.board[1][0] === this.state.player) && (this.state.board[2][0] === this.state.player)) ||
-     ((this.state.board[0][1] === this.state.player) && (this.state.board[1][1] === this.state.player) && (this.state.board[2][1] === this.state.player)) ||
-     ((this.state.board[0][2] === this.state.player) && (this.state.board[1][2] === this.state.player) && (this.state.board[2][2] === this.state.player))){
+    if((this.state.board[0][0] === this.state.player && this.state.board[1][0] === this.state.player && this.state.board[2][0] === this.state.player) ||
+     (this.state.board[0][1] === this.state.player && this.state.board[1][1] === this.state.player && this.state.board[2][1] === this.state.player) ||
+     (this.state.board[0][2] === this.state.player && this.state.board[1][2] === this.state.player && this.state.board[2][2] === this.state.player)){
       return  true
-    }
-  }
+    }else return false
+  };
 
   checkForDiagonalWin=()=>{
-    if(((this.state.board[0][0] === this.state.player) && (this.state.board[1][1] === this.state.player) && (this.state.board[2][2] === this.state.player)) ||
-     ((this.state.board[2][0] === this.state.player) && (this.state.board[1][1] === this.state.player) && (this.state.board[0][2] === this.state.player))){
+    if((this.state.board[0][0] === this.state.player && this.state.board[1][1] === this.state.player && this.state.board[2][2] === this.state.player) ||
+      (this.state.board[2][0] === this.state.player && this.state.board[1][1] === this.state.player && this.state.board[0][2] === this.state.player)){
       return  true
-    }
-  }
+    }else return false
+  };
 
   checkForWin=()=>{
-    if(this.checkForHorizontalWin || this.checkForVerticalWin ||  this.checkForDiagonalWin){
-      return true
-    }
-  }
+    if(this.state.clickCount >=5){
+      if(this.checkForHorizontalWin() || this.checkForVerticalWin() ||  this.checkForDiagonalWin()){
+        console.log(this.state.player + " wins!")
+      }else console.log('no wins yet')
+    }else console.log('not enough moves')
+  };
 
   clickTurnHandler=(row, column)=>{
     const newPlayer = this.state.player === 'X' ? 'O' : 'X';
+    const newClickCount = this.state.clickCount += 1;
     const newBoard = this.state.board;
-    const newClickCount = this.state.clickCount =+ 1;
-    const clickedRow = newBoard[row];
+    const clickedRow = this.state.board[row];
     clickedRow.splice(column,1, this.state.player);
-    newBoard.splice(row,1,column);
-    this.setState({player: newPlayer, board: newBoard, clickCount: newClickCount})
-    if(this.state.clickCount >=5){
-      if(this.checkForWin){
-        console.log(this.state.player + " wins!")
-      }
-    }
-  }
+    newBoard.splice(row,1,clickedRow);
+    this.setState({clickCount: newClickCount, board:newBoard, player: newPlayer});
+    this.checkForWin()
+  };
 
-  render=()=>{
-
+  render(){
     const rowStyle = {
       color: 'black',
       height: '120px',
