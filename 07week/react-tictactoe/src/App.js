@@ -7,6 +7,8 @@ class App extends Component {
     this.state = {
       player:"X",
       clickCount: 0,
+      xWins: null,
+      oWins: null,
       board: [
         [null, null, null],
         [null, null, null],
@@ -26,21 +28,35 @@ class App extends Component {
     this.checkForWin()
   };
 
-  clickResetHandler=()=>{
+  clickResetBoardHandler=()=>{
     const resetPlayer = "X"
     const resetClickCount = 0
     const resetBoard = [[null, null, null],[null, null, null],[null, null, null]]
     this.setState({player: resetPlayer, clickCount: resetClickCount, board: resetBoard})
   };
 
+  clickResetWinCountHandler=()=>{
+    const resetWinCountX = 0
+    const resetWinCountO = 0
+    this.setState({xWins: resetWinCountX, oWins: resetWinCountO})
+  };
+
+  // checkForHorizontalWin=()=>{
+  //   this.state.board.forEach((arr, index)=>{
+  //     arr.every((box)=>{
+  //       if(box === this.state.player){
+  //         console.log('horizontal')
+  //         return true
+  //       }
+  //     })
+  //   })
+  // };
   checkForHorizontalWin=()=>{
-    this.state.board.some((arr, index)=>{
-      this.state.board[index].every((box)=>{
-        if(box === this.state.player){
-          return true
-        }
-      })
-    })
+    if((this.state.board[0][0] === this.state.player && this.state.board[0][1] === this.state.player && this.state.board[0][2] === this.state.player) ||
+     (this.state.board[1][0] === this.state.player && this.state.board[1][2] === this.state.player && this.state.board[1][2] === this.state.player) ||
+     (this.state.board[2][0] === this.state.player && this.state.board[2][1] === this.state.player && this.state.board[2][2] === this.state.player)){
+      return  true
+    }
   };
 
   checkForVerticalWin=()=>{
@@ -62,6 +78,13 @@ class App extends Component {
     if(this.state.clickCount >=5){
       if(this.checkForHorizontalWin() || this.checkForVerticalWin() ||  this.checkForDiagonalWin()){
         alert(this.state.player + " wins!")
+        if(this.state.player === "X"){
+          const newXWinCount = this.state.xWins + 1
+          this.setState({xWins: newXWinCount})
+        }else{
+          const newOWinCount = this.state.oWins + 1
+          this.setState({oWins: newOWinCount})
+        }
       }
     }
   };
@@ -90,14 +113,13 @@ class App extends Component {
       justifyContent: 'center'
     }
 
-    const resetButtonStyle ={
+    const buttonStyle ={
       height: '50px',
       width: '100px',
       backgroundColor: 'grey',
-      position: 'absolute',
-      bottom:100,
-      left:585
-
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center'
     }
 
     return (
@@ -135,9 +157,17 @@ class App extends Component {
             {this.state.board[2][2]}
           </div>
         </div>
-        <button style={resetButtonStyle} onClick={()=>{this.clickResetHandler()}}>
-        Reset
-        </button>
+        <div className="row" style={rowStyle}>
+          <button style={buttonStyle} onClick={()=>{this.clickResetBoardHandler()}}>
+          Reset Board
+          </button>
+          <button style={buttonStyle} onClick={()=>{this.clickResetWinCountHandler()}}>
+          Reset Win Count
+          </button>
+        </div>
+        <div style={{display: 'flex', justifyContent: 'center'}}>
+          Score: Xs {this.state.xWins} , Os {this.state.oWins}
+        </div>
       </div>
     );
   }
