@@ -16,11 +16,13 @@ class App extends Component {
   };
 
   checkForHorizontalWin=()=>{
-    if((this.state.board[0][0] === this.state.player && this.state.board[0][1] === this.state.player && this.state.board[0][2] === this.state.player) ||
-    (this.state.board[1][0] === this.state.player && this.state.board[1][1] === this.state.player && this.state.board[1][2] === this.state.player) ||
-     (this.state.board[2][0] === this.state.player && this.state.board[2][1] === this.state.player && this.state.board[2][2] === this.state.player)){
-      return  true
-    }else return false
+    this.state.board.some((arr, index)=>{
+      this.state.board[index].every((box)=>{
+        if(box === this.state.player){
+          return true
+        }
+      })
+    })
   };
 
   checkForVerticalWin=()=>{
