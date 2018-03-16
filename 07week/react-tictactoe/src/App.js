@@ -95,9 +95,9 @@ class App extends Component {
   render(){
     const rowStyle = {
       color: 'black',
-      height: '120px',
+      height: '110',
       fontSize: '100px',
-      margin: '5px auto',
+      margin: '15px auto',
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'center'
@@ -108,7 +108,7 @@ class App extends Component {
       width: '110px',
       backgroundColor: 'lightblue',
       margin: 'auto 20px',
-      border: '5px solid darkgreen',
+      border: '5px solid Black',
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'center'
@@ -118,57 +118,83 @@ class App extends Component {
       height: '50px',
       width: '100px',
       backgroundColor: 'grey',
+      border: '2.5px solid Black',
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'center'
     }
 
+    const headerStyle = {
+      fontSize: '75px',
+      backgroundColor: "grey",
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center'
+    }
+    const footerStyle = {
+      height:'100px',
+      fontSize: '50px',
+      backgroundColor: "grey",
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center'
+    }
+
+    const backgroundStyle = {
+      background: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT22IQLFS9ukPnOOa-ty0R4kbZTTC_D_R3KKEmwAkdNC3XVMtqt(" + Background + ")'
+    }
+
     return (
-      <div>
-        <div className="row" style={rowStyle}>
-          <div style={boxStyle} onClick={() => {this.clickTurnHandler(0, 0)}} data-cell="0">
-            {this.state.board[0][0]}
+      <div style={{backgroundColor:'darkgrey'}}>
+        <header style={headerStyle}>   Tic Tac Toe    </header>
+          <body style={{backgroundColor: "lightgrey"}}>
+          <div className="row" style={rowStyle}>
+            <div style={boxStyle} onClick={() => {this.clickTurnHandler(0, 0)}} data-cell="0">
+              {this.state.board[0][0]}
+            </div>
+            <div style={boxStyle} onClick={() => {this.clickTurnHandler(0,1)}} data-cell="1">
+              {this.state.board[0][1]}
+            </div>
+            <div style={boxStyle} onClick={() => {this.clickTurnHandler(0,2)}} data-cell="2">
+              {this.state.board[0][2]}
+            </div>
           </div>
-          <div style={boxStyle} onClick={() => {this.clickTurnHandler(0,1)}} data-cell="1">
-            {this.state.board[0][1]}
+          <div className="row" style={rowStyle}>
+            <div style={boxStyle} onClick={() => {this.clickTurnHandler(1,0)}} data-cell="3">
+              {this.state.board[1][0]}
+            </div>
+            <div style={boxStyle} onClick={() => {this.clickTurnHandler(1,1)}} data-cell="4">
+              {this.state.board[1][1]}
+            </div>
+            <div style={boxStyle} onClick={() => {this.clickTurnHandler(1,2)}} data-cell="5">
+              {this.state.board[1][2]}
+            </div>
           </div>
-          <div style={boxStyle} onClick={() => {this.clickTurnHandler(0,2)}} data-cell="2">
-            {this.state.board[0][2]}
+          <div className="row" style={rowStyle}>
+            <div style={boxStyle} onClick={() => {this.clickTurnHandler(2,0)}} data-cell="6">
+              {this.state.board[2][0]}
+            </div>
+            <div style={boxStyle} onClick={() => {this.clickTurnHandler(2,1)}} data-cell="7">
+              {this.state.board[2][1]}
+            </div>
+            <div style={boxStyle} onClick={() => {this.clickTurnHandler(2,2)}} data-cell="8">
+              {this.state.board[2][2]}
+            </div>
           </div>
-        </div>
-        <div className="row" style={rowStyle}>
-          <div style={boxStyle} onClick={() => {this.clickTurnHandler(1,0)}} data-cell="3">
-            {this.state.board[1][0]}
+          <div className="row" style={rowStyle}>
+            <button style={buttonStyle} onClick={()=>{this.clickResetBoardHandler()}}>
+            Reset Board
+            </button>
+            <button style={buttonStyle} onClick={()=>{this.clickResetWinCountHandler()}}>
+            Reset Win Count
+            </button>
           </div>
-          <div style={boxStyle} onClick={() => {this.clickTurnHandler(1,1)}} data-cell="4">
-            {this.state.board[1][1]}
+        </body>
+        <footer style={footerStyle}>
+          <div>
+            Score: Xs {this.state.xWins} , Os {this.state.oWins}
           </div>
-          <div style={boxStyle} onClick={() => {this.clickTurnHandler(1,2)}} data-cell="5">
-            {this.state.board[1][2]}
-          </div>
-        </div>
-        <div className="row" style={rowStyle}>
-          <div style={boxStyle} onClick={() => {this.clickTurnHandler(2,0)}} data-cell="6">
-            {this.state.board[2][0]}
-          </div>
-          <div style={boxStyle} onClick={() => {this.clickTurnHandler(2,1)}} data-cell="7">
-            {this.state.board[2][1]}
-          </div>
-          <div style={boxStyle} onClick={() => {this.clickTurnHandler(2,2)}} data-cell="8">
-            {this.state.board[2][2]}
-          </div>
-        </div>
-        <div className="row" style={rowStyle}>
-          <button style={buttonStyle} onClick={()=>{this.clickResetBoardHandler()}}>
-          Reset Board
-          </button>
-          <button style={buttonStyle} onClick={()=>{this.clickResetWinCountHandler()}}>
-          Reset Win Count
-          </button>
-        </div>
-        <div style={{display: 'flex', justifyContent: 'center'}}>
-          Score: Xs {this.state.xWins} , Os {this.state.oWins}
-        </div>
+        </footer>
       </div>
     );
   }
