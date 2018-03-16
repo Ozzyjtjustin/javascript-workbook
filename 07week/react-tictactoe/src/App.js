@@ -18,14 +18,15 @@ class App extends Component {
   };
 
   clickTurnHandler=(row, column)=>{
-    const newPlayer = this.state.player === 'X' ? 'O' : 'X';
-    const newClickCount = this.state.clickCount += 1;
+    const newPlayer = this.state.player;
+    const newClickCount = this.state.clickCount;
     const newBoard = this.state.board;
     const clickedRow = this.state.board[row];
     clickedRow.splice(column,1, this.state.player);
     newBoard.splice(row,1,clickedRow);
-    this.setState({clickCount: newClickCount, board:newBoard, player: newPlayer});
+    this.setState({clickCount: newClickCount + 1, board:newBoard, player: newPlayer === 'X' ? 'O' : 'X'});
     this.checkForWin()
+    console.log(this.state.clickCount)
   };
 
   clickResetBoardHandler=()=>{
@@ -75,15 +76,15 @@ class App extends Component {
   };
 
   checkForWin=()=>{
-    if(this.state.clickCount >=5){
+    if(this.state.clickCount >= 4){
       if(this.checkForHorizontalWin() || this.checkForVerticalWin() ||  this.checkForDiagonalWin()){
         alert(this.state.player + " wins!")
         if(this.state.player === "X"){
-          const newXWinCount = this.state.xWins + 1
-          this.setState({xWins: newXWinCount})
+          const newXWinCount = this.state.xWins
+          this.setState({xWins: newXWinCount + 1})
         }else{
-          const newOWinCount = this.state.oWins + 1
-          this.setState({oWins: newOWinCount})
+          const newOWinCount = this.state.oWins
+          this.setState({oWins: newOWinCount + 1})
         }
       }
     }
