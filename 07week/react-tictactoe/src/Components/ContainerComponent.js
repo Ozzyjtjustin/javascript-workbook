@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../App.css';
 import {TicTacToePresenter} from './PresentationalComponent'
 
-class TicTacToeContainer extends Component {
+export class TicTacToeContainer extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -18,7 +18,7 @@ class TicTacToeContainer extends Component {
     }
   };
 
-  clickTurnHandler=(row, column)=>{
+   clickTurnHandler=(row, column)=>{
     const newPlayer = this.state.player;
     const newClickCount = this.state.clickCount;
     const newBoard = this.state.board;
@@ -27,7 +27,6 @@ class TicTacToeContainer extends Component {
     newBoard.splice(row,1,clickedRow);
     this.setState({clickCount: newClickCount + 1, board:newBoard, player: newPlayer === 'X' ? 'O' : 'X'});
     this.checkForWin()
-    console.log(this.state.clickCount)
   };
 
   clickResetBoardHandler=()=>{
