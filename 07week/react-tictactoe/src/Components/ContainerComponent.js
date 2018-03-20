@@ -93,9 +93,13 @@ export class TicTacToeContainer extends Component {
 
   render(){
     return <TicTacToePresenter
-    board={this.state.board}
-    xWinCount={this.state.xWins}
-    oWinCount={this.state.oWins}/>
+      board={this.state.board}
+      xWinCount={this.state.xWins}
+      oWinCount={this.state.oWins}
+      turnClick={()=>this.clickTurnHandler()}
+      resetBoardClick={()=>this.clickResetBoardHandler()}
+      resetWinsClick={()=>this.clickResetWinCountHandler()}
+    />
   }
 }
 
